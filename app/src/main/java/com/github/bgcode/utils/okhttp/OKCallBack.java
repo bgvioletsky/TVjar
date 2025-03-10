@@ -1,4 +1,4 @@
-package com.github.catvod.utils.okhttp;
+package com.github.bgcode.utils.okhttp;
 
 import java.io.IOException;
 
