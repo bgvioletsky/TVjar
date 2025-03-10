@@ -1,5 +1,5 @@
 {
-    "spider": "https://raw.githubusercontent.com/bgvioletsky/TVjar/refs/heads/main/jar/bgcode_spider.jar",
+    "spider": "https://raw.githubusercontent.com/bgvioletsky/TVjar/refs/heads/main/jar/lk.jar",
   
     "lives": [
       {
@@ -10,7 +10,6 @@
     ],
   
     "sites": [
-      {"key":"csp_Xl720","name":"磁力 | 迅雷电影天堂","type":3,"api":"csp_Xl720","searchable":1,"playerType":1,"timeout":120},
       {"key":"csp_Dm56","name":"动漫 | 巴士","type":3,"api": "csp_Dm56","searchable":1},
       {"key":"csp_Xl720","name":"磁力 | 迅雷电影天堂","type":3,"api":"csp_Xl720","searchable":1,"playerType":1,"timeout":120},
       {"key":"csp_SixV","name":"磁力 | 新6V电影网","type":3,"api":"csp_SixV","searchable":1,"playerType":1,"timeout":120},
