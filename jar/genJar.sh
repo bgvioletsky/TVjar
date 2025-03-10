@@ -2,7 +2,7 @@
 ###
  # @Author: catvod
  # @Date: 2025-03-10 12:38:35
- # @LastEditTime: 2025-03-11 02:43:33
+ # @LastEditTime: 2025-03-11 03:09:25
  # @LastEditors: bgcode
  # @Description: 描述
  # @FilePath: /bgcode/jar/genJar.sh
@@ -44,7 +44,7 @@ ls
 mv ./jar/spider.jar/dist/dex.jar ./jar/catvod_spider.jar
 
 # 计算 MD5 哈希值
-md5sum ./jar/catvod_spider.jar | awk '{print $1}' > ./jar/catvod_spider.jar.md5
+md5sum ./jar/catvod_spider.jar | awk '{print $1}' > ./jar/catvod_spider.md5
 
 # 删除临时目录
 rm -rf ./jar/spider.jar/smali/com/github/catvod/spider

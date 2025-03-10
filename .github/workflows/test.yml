@@ -38,6 +38,6 @@ jobs:
             git config --local user.email bglhcode@icloud.com
             git config --local user.name bgcode
             git pull
-            git add ./jar/catvod_spider.jar.md5 ./jar/catvod_spider.jar
+            git add ./jar/catvod_spider.md5 ./jar/catvod_spider.jar
             git commit -m "更新jar包
             git push
