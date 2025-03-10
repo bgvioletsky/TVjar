@@ -1,12 +1,3 @@
-/*
- * @Author: bgcode
- * @Date: 2025-03-10 12:25:31
- * @LastEditTime: 2025-03-10 13:15:08
- * @LastEditors: bgcode
- * @Description: 描述
- * @FilePath: /bgcode/app/src/main/java/com/github/bgcode/parser/MixDemo.java
- * 本项目采用GPL 许可证，欢迎任何人使用、修改和分发。
- */
 package com.github.bgcode.parser;
 
 import android.util.Base64;
