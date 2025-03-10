@@ -1,6 +1,8 @@
 package com.github.catvod.live;
 
-import com.github.catvod.utils.okhttp.OkHttpUtil;
+import android.util.Base64;
+
+import com.github.catvod.net.OkHttp;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -17,8 +19,15 @@ import java.util.LinkedHashMap;
 public class TxtSubscribe {
 
     public static void subscribe(LinkedHashMap<String, LinkedHashMap<String, ArrayList<String>>> allLives, String url, HashMap<String, String> headers) {
-        String content = OkHttpUtil.string(url, headers);
-        parse(allLives, content);
+        if (url.contains(".bmp")) {
+            String content = OkHttp.string(url, headers);
+            String[] split = content.split("\\*\\*");
+            String a = new String(Base64.decode(split[1], Base64.DEFAULT));
+            parse(allLives, a);
+        } else {
+            String content = OkHttp.string(url, headers);
+            parse(allLives, content);
+        }
     }
 
     public static void parse(LinkedHashMap<String, LinkedHashMap<String, ArrayList<String>>> allLives, String txt) {
