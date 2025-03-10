@@ -18,8 +18,8 @@
 -classobfuscationdictionary build/class-dictionary.txt
 -packageobfuscationdictionary build/package-dictionary.txt
 
--flattenpackagehierarchy com.github.bgcode.spider.merge
--repackageclasses com.github.bgcode.spider.merge
+-flattenpackagehierarchy com.github.catvod.spider.merge
+-repackageclasses com.github.catvod.spider.merge
 
 -dontwarn okio.**
 -keep class okio.**{*;}
@@ -35,6 +35,6 @@
 -dontwarn kotlinx.**
 -keep class kotlinx.**{*;}
 
--keep class com.github.bgcode.crawler.* { *; }
--keep class com.github.bgcode.spider.* { public <methods>; }
--keep class com.github.bgcode.parser.* { public <methods>; }
+-keep class com.github.catvod.crawler.* { *; }
+-keep class com.github.catvod.spider.* { public <methods>; }
+-keep class com.github.catvod.parser.* { public <methods>; }

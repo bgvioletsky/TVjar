@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace 'com.github.bgcode.demo'
+    namespace 'com.github.catvod.demo'
     compileSdkVersion rootProject.compileSdkVersion
 
     defaultConfig {
-        applicationId "com.github.bgcode.demo"
+        applicationId "com.github.catvod.demo"
         minSdkVersion rootProject.miniSdkVersion
         targetSdkVersion rootProject.targetSdkVersion
         versionCode rootProject.appVersionCode
