@@ -23,7 +23,6 @@ import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import javax.print.DocFlavor.STRING;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -32,7 +31,7 @@ import okhttp3.Response;
  * @author bgcode
  * 56动漫
  */
-public class dm56 extends Spider {
+public class Dm56 extends Spider {
     private final String siteUrl="https://www.56dm.cc";
     private final String userAgent = "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36";
     private String req(String url, Map<String, String> header) {
@@ -208,8 +207,8 @@ public class dm56 extends Spider {
                 String episodeName = "第" + a+ "集";
                 vodItems.add(episodeName + "$" + episodeUrl);
                 if (vodItems.size() > 0) {
-                 playMap.put(circuitName, TextUtils.join("#", vodItems));
-            }
+                    playMap.put(circuitName, TextUtils.join("#", vodItems));
+                }
             }
         }
 
@@ -225,8 +224,8 @@ public class dm56 extends Spider {
         vod.put("vod_director", director); // 导演 选填
         vod.put("vod_content", description); // 简介 选填
         if (playMap.size() > 0) {
-             vod.put("vod_play_from", TextUtils.join("$$$", playMap.keySet()));
-             vod.put("vod_play_url", TextUtils.join("$$$", playMap.values()));
+            vod.put("vod_play_from", TextUtils.join("$$$", playMap.keySet()));
+            vod.put("vod_play_url", TextUtils.join("$$$", playMap.values()));
         }
         JSONArray jsonArray = new JSONArray().put(vod);
         JSONObject result = new JSONObject().put("list", jsonArray);
