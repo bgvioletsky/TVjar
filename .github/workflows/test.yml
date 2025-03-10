@@ -32,5 +32,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Spider
-          path: ./jar/custom_spider.jar  
+          path: ./jar/bgcode_spider.jar  
 
