@@ -39,7 +39,7 @@ rm -rf ./jar/Smali_classes
 
 # 重新打包为 APK
 java -jar ./jar/3rd/apktool_2.4.1.jar b ./jar/spider.jar -c
-
+ls 
 # 移动生成的 DEX JAR 文件
 mv ./jar/spider.jar/dist/dex.jar ./jar/catvod_spider.jar
 
