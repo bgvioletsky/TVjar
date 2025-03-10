@@ -1,4 +1,4 @@
-package com.github.b g co de.parser;
+package com.github.bgcode.parser;
 
 import android.util.Base64;
 
