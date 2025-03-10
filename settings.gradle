@@ -1,2 +1,2 @@
-rootProject.name = "CatVodSpider"
+rootProject.name = "BGcodeSpider"
 include ':app'
