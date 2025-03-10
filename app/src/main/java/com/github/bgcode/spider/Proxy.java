@@ -1,3 +1,12 @@
+/*
+ * @Author: bgcode
+ * @Date: 2025-03-10 12:25:31
+ * @LastEditTime: 2025-03-10 14:03:27
+ * @LastEditors: bgcode
+ * @Description: 描述
+ * @FilePath: /bgcode/app/src/main/java/com/github/bgcode/spider/Proxy.java
+ * 本项目采用GPL 许可证，欢迎任何人使用、修改和分发。
+ */
 package com.github.bgcode.spider;
 
 import android.util.Base64;
@@ -59,9 +68,7 @@ public class Proxy extends Spider {
                 return MixDemo.loadHtml(params.get("flag"), params.get("url"));
             } else if (what.equals("MixWeb")) {
                 return MixWeb.loadHtml(params.get("flag"), params.get("url"));
-            } else if (what.equals("xunlei8")) {
-                return Xunlei8.loadPic(params.get("pic"));
-            }
+            } 
         } catch (Throwable th) {
             th.printStackTrace();
         }
