@@ -28,16 +28,16 @@ jobs:
           chmod +x gradlew ./jar/genJar.sh 
           ./gradlew assembleRelease --no-daemon
           ./jar/genJar.sh
-      # - name: Upload APK
-      #   uses: actions/upload-artifact@v4
-      #   with:
-      #     name: Spider
-      #     path: 
-      - name: Commit and push changes
-        run: |
-            git config --local user.email bglhcode@icloud.com
-            git config --local user.name bgcode
-            git pull
-            git add ./jar/catvod_spider.md5 ./jar/catvod_spider.jar
-            git commit -m "更新jar包
-            git push
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
+        with:
+          name: Spider
+          path: ./jar/catvod_spider.jar
+      # - name: Commit and push changes
+      #   run: |
+      #       git config --local user.email bglhcode@icloud.com
+      #       git config --local user.name bgcode
+      #       git pull
+      #       git add ./jar/catvod_spider.md5 ./jar/catvod_spider.jar
+      #       git commit -m "更新jar包
+      #       git push
