@@ -62,7 +62,7 @@ old_str=";md5;[^,]*"
 new_str=";md5;$new_md5\""
 
 # 使用 sed 进行替换，并创建备份文件
-sed -i.bak "s/$old_str/$new_str/g" .jar/bgcode.json
+sed -i.bak "s/$old_str/$new_str/g" ./jar/bgcode.json 
 
 mkdir -p ./jar/bg
 cp ./jar/bgcode.jar ./jar/bg/bgcode.jar
