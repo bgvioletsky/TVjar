@@ -55,7 +55,7 @@ rm -rf ./jar/spider.jar/dist
 new_md5=$(cat ./jar/bgcode.md5)
 
 # 替换a.json文件中的MD5码
-sed  "s/;md5;[^,]*/;md5;$new_md5\"/" ./jar/bgcode.json > ./jar/bgcode.json
+sed  "s/;md5;[^,]*/;md5;$new_md5\"/" ./jar/bgcode.json >> ./jar/bgcode.json
 mkdir -p ./jar/bg
 cp ./jar/bgcode.jar ./jar/bg/bgcode.jar
 cp ./jar/bgcode.md5 ./jar/bg/bgcode.md5
