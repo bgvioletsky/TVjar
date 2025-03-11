@@ -2,7 +2,7 @@
 ###
  # @Author: catvod
  # @Date: 2025-03-10 12:38:35
- # @LastEditTime: 2025-03-11 16:00:54
+ # @LastEditTime: 2025-03-11 17:59:29
  # @LastEditors: bgcode
  # @Description: 描述
  # @FilePath: /TVjar/jar/genJar.sh
@@ -55,7 +55,15 @@ rm -rf ./jar/spider.jar/dist
 new_md5=$(cat ./jar/bgcode.md5)
 
 # 替换a.json文件中的MD5码
-sed  "s/;md5;[^,]*/;md5;$new_md5\"/" ./jar/bgcode.json >> ./jar/bgcode.json
+# 安全地读取文件内容并转义特殊字符
+new_md5=$(cat ./jar/bgcode.md5 | sed 's/[&/]/\\&/g')
+
+old_str=";md5;[^,]*"
+new_str=";md5;$new_md5\""
+
+# 使用 sed 进行替换，并创建备份文件
+sed -i.bak "s/$old_str/$new_str/g" .jar/bgcode.json
+
 mkdir -p ./jar/bg
 cp ./jar/bgcode.jar ./jar/bg/bgcode.jar
 cp ./jar/bgcode.md5 ./jar/bg/bgcode.md5
