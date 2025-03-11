@@ -138,7 +138,7 @@ public class Dm56 extends Spider {
         Document doc = Jsoup.parse(html);
         Elements aList = doc.select(".snui-header-menu-nav> ul>li > a");
         JSONArray classes = new JSONArray();
-        for (int i = 0; i < aList.size(); i++) {
+        for (int i = 1; i < aList.size(); i++) {
             Element a = aList.get(i);
             String text = a.text();
             String href = a.attr("href");
