@@ -2,15 +2,15 @@
 ###
  # @Author: catvod
  # @Date: 2025-03-10 12:38:35
- # @LastEditTime: 2025-03-11 15:36:27
+ # @LastEditTime: 2025-03-11 16:00:54
  # @LastEditors: bgcode
  # @Description: 描述
- # @FilePath: /bgcode/jar/genJar.sh
+ # @FilePath: /TVjar/jar/genJar.sh
  # 本项目采用GPL 许可证，欢迎任何人使用、修改和分发。
 ### 
 
 # 删除旧的 JAR 文件
-rm -f ./jar/catvod_spider.jar
+rm -f ./jar/bgcode.jar
 
 # 删除旧的 Smali 类目录
 rm -rf ./jar/Smali_classes
@@ -56,3 +56,6 @@ new_md5=$(cat ./jar/bgcode.md5)
 
 # 替换a.json文件中的MD5码
 sed  "s/;md5;[^,]*/;md5;$new_md5\"/" ./jar/bgcode.json > ./jar/bgcode.json
+mkdir -p ./jar/bg
+cp ./jar/bgcode.jar ./jar/bg/bgcode.jar
+cp ./jar/bgcode.md5 ./jar/bg/bgcode.md5

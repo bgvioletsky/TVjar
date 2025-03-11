@@ -22,7 +22,16 @@ jobs:
             java-version: '17'
             distribution: 'adopt'
             cache: gradle
-  
+      - name: 创建版本号
+        run: |              
+             if ! mv ./config/version  version; then
+                    echo "Failed to move the file."
+                    exit 1
+             fi
+                 
+             echo "version=$(bash ./config/version.sh)" >> $GITHUB_ENV
+             echo "**发布时间：$(date +'%Y-%m-%d %H:%M:%S')**" >> bgcode.txt
+             mv version config/version
       - name: Build With Gradle
         run: |
           chmod +x gradlew ./jar/genJar.sh 
@@ -32,12 +41,18 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: Spider
-          path: ./jar/catvod_spider.jar
+          path: ./jar/bg/*
       - name: Commit and push changes
         run: |
             git config --local user.email bglhcode@icloud.com
             git config --local user.name bgcode
             git pull
-            git add ./jar/catvod_spider.md5 ./jar/catvod_spider.jar
-            git commit -m "更新jar包"
+            git add ./jar/bgcode.md5 ./jar/bgcode.jar ./config/version
+            git commit -m "更新jar包  时间：$(date +'%Y-%m-%d %H:%M:%S')"
             git push
+      - name: 发布到release
+        uses: softprops/action-gh-release@v1
+        with:
+          tag_name: ${{ env.version }}
+          body_path: bgcode.txt
+          files: ./jar/bg/*
