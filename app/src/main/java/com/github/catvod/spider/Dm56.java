@@ -354,7 +354,7 @@ public class Dm56 extends Spider {
         String ivHex = parts[1];
         System.out.println(data+"\n"+ivHex);
         String keyHex = "41424142454637373739393943434344";
-        String fainlurl = dm56.decrypt(data, keyHex, ivHex);
+        String fainlurl = Dm56.decrypt(data, keyHex, ivHex);
         JSONObject result = new JSONObject();
         result.put("parse", 0);
         result.put("header", "");
