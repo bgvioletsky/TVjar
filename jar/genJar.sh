@@ -2,7 +2,7 @@
 ###
  # @Author: catvod
  # @Date: 2025-03-10 12:38:35
- # @LastEditTime: 2025-03-11 03:09:25
+ # @LastEditTime: 2025-03-11 15:36:27
  # @LastEditors: bgcode
  # @Description: 描述
  # @FilePath: /bgcode/jar/genJar.sh
@@ -41,13 +41,18 @@ rm -rf ./jar/Smali_classes
 java -jar ./jar/3rd/apktool_2.4.1.jar b ./jar/spider.jar -c
 ls 
 # 移动生成的 DEX JAR 文件
-mv ./jar/spider.jar/dist/dex.jar ./jar/catvod_spider.jar
+mv ./jar/spider.jar/dist/dex.jar ./jar/bgcode.jar
 
 # 计算 MD5 哈希值
-md5sum ./jar/catvod_spider.jar | awk '{print $1}' > ./jar/catvod_spider.md5
+md5sum ./jar/bgcode.jar | awk '{print $1}' > ./jar/bgcode.md5
 
 # 删除临时目录
 rm -rf ./jar/spider.jar/smali/com/github/catvod/spider
 rm -rf ./jar/spider.jar/smali/com/github/catvod/parser
 rm -rf ./jar/spider.jar/build
 rm -rf ./jar/spider.jar/dist
+
+new_md5=$(cat ./jar/bgcode.md5)
+
+# 替换a.json文件中的MD5码
+sed  "s/;md5;[^,]*/;md5;$new_md5\"/" ./jar/bgcode.json > ./jar/bgcode.json
