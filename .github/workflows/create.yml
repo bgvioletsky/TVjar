@@ -47,7 +47,7 @@ jobs:
             git config --local user.email bglhcode@icloud.com
             git config --local user.name bgcode
             git pull
-            git add ./jar/bgcode.md5 ./jar/bgcode.jar ./config/version
+            git add ./jar/bgcode.md5 ./jar/bgcode.jar ./config/version ./jar/bgcode.json
             git commit -m "更新jar包  时间：$(date +'%Y-%m-%d %H:%M:%S')"
             git push
       - name: 发布到release
