@@ -280,13 +280,38 @@ public class Dm56 extends Spider {
         return result.toString();
     }
 
-    @Override
+    // @Override
+    // public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
+    //     JSONObject result = new JSONObject();
+    //     result.put("parse", 0);
+    //     result.put("header", "");
+    //     result.put("playUrl", "");
+    //     result.put("url", id);
+    //     return result.toString();
+    // }
     public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
+        String lastUrl = id;
+        String html = req(lastUrl, getHeader(lastUrl));
+        // 2. 定义正则表达式匹配目标变量
+        String jsonStr = find("var player_aaaa=(.*?)</script>", html);
+        JSONObject jsonObject = new JSONObject(jsonStr);
+        String dmid=new JSONObject(find("var d4ddy=(.*?)</script>",html)).get("dmid").toString();
+        String link = jsonObject.get("link").toString();
+        String url = jsonObject.get("url").toString();
+        String link_next=jsonObject.get("link_next").toString();
+        String sid=jsonObject.get("sid").toString();
+        String nid=jsonObject.get("nid").toString();
+        JSONObject vodData = jsonObject.getJSONObject("vod_data");
+        String name = vodData.get("vod_name").toString();
+        String pic = vodData.get("vod_pic").toString();
+        String secendurl="https://art2.v2player.top:8989/player/?t=bus&url="+url+"&dmid="+dmid+"&next="+link_next+"&name="+name+"&sid="+sid+"&nid="+nid+"&cur="+link+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc"+"&pic"+pic;
+        // 打印根级别的键值对
+    //    System.out.println(secendurl);
         JSONObject result = new JSONObject();
         result.put("parse", 0);
         result.put("header", "");
         result.put("playUrl", "");
-        result.put("url", id);
+        result.put("url", secendurl);
         return result.toString();
     }
 
