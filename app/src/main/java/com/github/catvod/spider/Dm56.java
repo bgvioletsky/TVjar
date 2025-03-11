@@ -62,7 +62,7 @@ public class Dm56 extends Spider {
     }
    
 
-    private static String decrypt(String data, String keyHex, String ivHex) throws Exception {
+    private  String decrypt(String data, String keyHex, String ivHex) throws Exception {
         // 将十六进制的密钥转换为字节数组
         byte[] keyBytes = hexToBytes(keyHex);
         // 创建 AES 密钥规范
@@ -402,7 +402,7 @@ public class Dm56 extends Spider {
            String data = parts[0];
            String ivHex = parts[1];
            String keyHex = "41424142454637373739393943434344";
-           fainlurl= dm56.decrypt(data, keyHex, ivHex);
+           fainlurl= decrypt(data, keyHex, ivHex);
 
         }else if(html.contains("Artplayer")){
            fainlurl = find("url: '(.*?)\\'", html);
