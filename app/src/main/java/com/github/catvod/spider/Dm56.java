@@ -22,7 +22,11 @@ import java.util.List;
 import java.util.Map;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
@@ -38,6 +42,40 @@ public class Dm56 extends Spider {
         return OkHttp.string(url, header);
     }
     private final String cookie="PHPSESSID=ejukn60i0o1jcaq9cb4btnnr0n; _ga_8JCZ6DPVZK=GS1.1.1741625610.1.0.1741625610.60.0.0; _ga=GA1.1.2083697891.1741625611; notice_closed=true";
+    private static String decrypt(String data, String keyHex, String ivHex) throws Exception {
+        // 将十六进制的密钥转换为字节数组
+        byte[] keyBytes = hexToBytes(keyHex);
+        // 创建 AES 密钥规范
+        SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
+
+        // 将十六进制的 IV 转换为字节数组
+        byte[] ivBytes = hexToBytes(ivHex);
+        // 创建 IV 参数规范
+        IvParameterSpec ivParameterSpec = new IvParameterSpec(ivBytes);
+
+        // 创建 Cipher 实例，使用 AES/CBC/PKCS5Padding 模式
+        Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
+        // 初始化为解密模式
+        cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
+
+        // 将 Base64 编码的密文解码为字节数组
+        byte[] decodedData = Base64.getDecoder().decode(data);
+        // 进行解密操作
+        byte[] decryptedBytes = cipher.doFinal(decodedData);
+
+        // 将解密后的字节数组转换为 UTF-8 字符串
+        return new String(decryptedBytes, StandardCharsets.UTF_8);
+    }
+    private static byte[] hexToBytes(String hex) {
+        int len = hex.length();
+        byte[] data = new byte[len / 2];
+        for (int i = 0; i < len; i += 2) {
+            data[i / 2] = (byte) ((Character.digit(hex.charAt(i), 16) << 4)
+                    + Character.digit(hex.charAt(i + 1), 16));
+        }
+        return data;
+    }
+    
     /**
      * 发起一个HTTP请求并返回响应结果
      * 此方法使用OkHttp客户端来发送请求，并接收服务器的响应
@@ -46,6 +84,7 @@ public class Dm56 extends Spider {
      * @return Response对象，包含服务器返回的状态码、头信息和响应体等
      * @throws Exception 如果在执行请求过程中发生错误，将抛出异常
      */
+
     private Response req(Request request) throws Exception {
         return okClient().newCall(request).execute();
     }
@@ -289,6 +328,7 @@ public class Dm56 extends Spider {
     //     result.put("url", id);
     //     return result.toString();
     // }
+    @Override
     public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
         String lastUrl = id;
         String html = req(lastUrl, getHeader(lastUrl));
@@ -305,13 +345,18 @@ public class Dm56 extends Spider {
         String name = vodData.get("vod_name").toString();
         String pic = vodData.get("vod_pic").toString();
         String secendurl="https://art2.v2player.top:8989/player/?t=bus&url="+url+"&dmid="+dmid+"&next="+link_next+"&name="+name+"&sid="+sid+"&nid="+nid+"&cur="+link+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc"+"&pic"+pic;
-        // 打印根级别的键值对
-    //    System.out.println(secendurl);
+        html = req(secendurl,getHeader(siteUrl,cookie));
+        String lasturl=find("playData\\(\\'(.*?)\\'\\)",html);
+        String[] parts = lasturl.split("\',\'");
+        String data  = parts[0];
+        String ivHex = parts[1];
+        String keyHex = "41424142454637373739393943434344";
+        String fainlurl = dm56.decrypt(data, keyHex, ivHex);
         JSONObject result = new JSONObject();
         result.put("parse", 0);
         result.put("header", "");
         result.put("playUrl", "");
-        result.put("url", secendurl);
+        result.put("url", fainlurl);
         return result.toString();
     }
 
