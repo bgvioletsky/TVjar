@@ -449,7 +449,7 @@ public class Dm56 extends Spider {
            String keyHex = "41424142454637373739393943434344";
            fainlurl1= decrypt(data, keyHex, ivHex);
         }else if(html.contains("Artplayer")){
-           fainlurl1 = find("url: '(.*?)\\'", html);
+           fainlurl1 = find("url: '(.*?)\\'", html).replace("https://m3u8xx.sgzm.net:2087/","");
         }
         fainlurl1=decodeUnicodeEscape(fainlurl1);
         result.put("parse", 0);
