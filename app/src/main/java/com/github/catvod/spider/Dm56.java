@@ -372,29 +372,74 @@ public class Dm56 extends Spider {
     }
 
 
+    // public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
+    //     String lastUrl = id;
+    //     String html = req(lastUrl, getHeader(lastUrl));
+    //     String jsonStr = find("var player_aaaa=(.*?)</script>", html);
+    //     JSONObject jsonObject = new JSONObject(jsonStr);
+    //     String dmid = new JSONObject(find("var d4ddy=(.*?)</script>", html)).get("dmid").toString();
+    //     String link = jsonObject.get("link").toString();
+    //     String url = decodeUnicodeEscape(jsonObject.get("url").toString());
+
+    //     String link_next = jsonObject.get("link_next").toString();
+    //     String sid = jsonObject.get("sid").toString();
+    //     String nid = jsonObject.get("nid").toString();
+    //     JSONObject vodData = jsonObject.getJSONObject("vod_data");
+    //     String name = decodeUnicodeEscape(vodData.get("vod_name").toString());
+    //     String pic = vodData.get("vod_pic").toString();
+    //     JSONObject result = new JSONObject();
+    //     String MacPlayerConfig = jsonObject.get("from").toString();
+    //     html = req("https://www.56dm.cc/static/player/" + MacPlayerConfig + ".js", getHeader(url));
+    //     String finalurl = find("src=(.*?) frameborder=", html).replace("\"", "").replace(" ", "");
+    //     finalurl = finalurl.replace("'+MacPlayer.PlayUrl+'", url).replace("'+d4ddy.dmid+'", dmid).replace("'+MacPlayer.PlayLinkNext+'", link_next).replace("'+MacPlayer.PlayName+'", name).replace("'+MacPlayer.Nid+'", nid).replace("'+window.location.origin+'", "https://www.56dm.cc").replace("'+MacPlayer.Pic+'", pic).replace("'+MacPlayer.Link+'", link).replace("'+MacPlayer.Sid+'", sid);
+    //     System.out.println(finalurl);
+    //     html = req(finalurl, getHeader(siteUrl));
+    //     String lasturl;String fainlurl = "";
+
+    //     if(html.contains("playData")){
+    //        lasturl = find("playData\\(\\'(.*?)\\'\\)", html);
+    //        String[] parts = lasturl.split("\',\'");
+    //        String data = parts[0];
+    //        String ivHex = parts[1];
+    //        String keyHex = "41424142454637373739393943434344";
+    //        fainlurl= decrypt(data, keyHex, ivHex);
+
+    //     }else if(html.contains("Artplayer")){
+    //        fainlurl = find("url: '(.*?)\\'", html);
+
+    //     }
+    //     fainlurl=decodeUnicodeEscape(fainlurl);
+    //     result.put("parse", 0);
+    //     result.put("header", "");
+    //     result.put("playUrl", "");
+    //     result.put("url", fainlurl);
+    //     return result.toString();
+    // }
     public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
-        String lastUrl = id;
-        String html = req(lastUrl, getHeader(lastUrl));
-        String jsonStr = find("var player_aaaa=(.*?)</script>", html);
-        JSONObject jsonObject = new JSONObject(jsonStr);
+        String html = req(id, getHeader(siteUrl));
+        JSONObject jsonObject = new JSONObject(find("var player_aaaa=(.*?)</script>", html));
+        JSONObject vodData = jsonObject.getJSONObject("vod_data");
+        JSONObject result = new JSONObject();
         String dmid = new JSONObject(find("var d4ddy=(.*?)</script>", html)).get("dmid").toString();
         String link = jsonObject.get("link").toString();
-        String url = decodeUnicodeEscape(jsonObject.get("url").toString());
-
-        String link_next = jsonObject.get("link_next").toString();
-        String sid = jsonObject.get("sid").toString();
         String nid = jsonObject.get("nid").toString();
-        JSONObject vodData = jsonObject.getJSONObject("vod_data");
+        String link_next = jsonObject.get("link_next").toString();
+        String url = decodeUnicodeEscape(jsonObject.get("url").toString());
+        String sid = jsonObject.get("sid").toString();
         String name = decodeUnicodeEscape(vodData.get("vod_name").toString());
         String pic = vodData.get("vod_pic").toString();
-        JSONObject result = new JSONObject();
         String MacPlayerConfig = jsonObject.get("from").toString();
-        html = req("https://www.56dm.cc/static/player/" + MacPlayerConfig + ".js", getHeader(url));
-        String finalurl = find("src=(.*?) frameborder=", html).replace("\"", "").replace(" ", "");
-        finalurl = finalurl.replace("'+MacPlayer.PlayUrl+'", url).replace("'+d4ddy.dmid+'", dmid).replace("'+MacPlayer.PlayLinkNext+'", link_next).replace("'+MacPlayer.PlayName+'", name).replace("'+MacPlayer.Nid+'", nid).replace("'+window.location.origin+'", "https://www.56dm.cc").replace("'+MacPlayer.Pic+'", pic).replace("'+MacPlayer.Link+'", link).replace("'+MacPlayer.Sid+'", sid);
+        String finalurl="";
+        if(MacPlayerConfig.equals("tudou")){
+            finalurl="https://art2.v2player.top:8989/player/?t=td&url="+ url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&sid="+sid+"&nid="+nid+"&cur="+link+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic;
+        }else if (MacPlayerConfig.equals("1080zyk")||MacPlayerConfig.equals("bfzym3u8")||MacPlayerConfig.equals("mp4")||MacPlayerConfig.equals("xigua")||MacPlayerConfig.equals("ffm3u8")||MacPlayerConfig.equals("lzm3u8")){
+            finalurl="https://art.v2player.top:8989/player/?url="+url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&nid="+nid+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic;
+        }else if(MacPlayerConfig.equals("mag")){
+            finalurl="https://art2.v2player.top:8989/player/?t=bus&url="+ url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&sid="+sid+"&nid="+nid+"&cur="+link+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic ;
+        }
         System.out.println(finalurl);
         html = req(finalurl, getHeader(siteUrl));
-        String lasturl;String fainlurl = "";
+        String lasturl;String fainlurl1 = "";
 
         if(html.contains("playData")){
            lasturl = find("playData\\(\\'(.*?)\\'\\)", html);
@@ -402,17 +447,16 @@ public class Dm56 extends Spider {
            String data = parts[0];
            String ivHex = parts[1];
            String keyHex = "41424142454637373739393943434344";
-           fainlurl= decrypt(data, keyHex, ivHex);
-
+           fainlurl1= decrypt(data, keyHex, ivHex);
         }else if(html.contains("Artplayer")){
-           fainlurl = find("url: '(.*?)\\'", html);
-
+           fainlurl1 = find("url: '(.*?)\\'", html);
         }
-        fainlurl=decodeUnicodeEscape(fainlurl);
+        fainlurl1=decodeUnicodeEscape(fainlurl1);
         result.put("parse", 0);
         result.put("header", "");
         result.put("playUrl", "");
-        result.put("url", fainlurl);
+        result.put("url", fainlurl1);
         return result.toString();
 }
+
 }
