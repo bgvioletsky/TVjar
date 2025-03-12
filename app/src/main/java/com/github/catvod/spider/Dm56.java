@@ -55,35 +55,20 @@ public class Dm56 extends Spider {
             matcher.appendReplacement(sb, new String(Character.toChars(codePoint)));
         }
         matcher.appendTail(sb);
-
-        // 再进行标准的 URL 解码
         return URLDecoder.decode(sb.toString(), StandardCharsets.UTF_8.name());
 
     }
    
 
     private  String decrypt(String data, String keyHex, String ivHex) throws Exception {
-        // 将十六进制的密钥转换为字节数组
         byte[] keyBytes = hexToBytes(keyHex);
-        // 创建 AES 密钥规范
         SecretKeySpec secretKeySpec = new SecretKeySpec(keyBytes, "AES");
-
-        // 将十六进制的 IV 转换为字节数组
         byte[] ivBytes = hexToBytes(ivHex);
-        // 创建 IV 参数规范
         IvParameterSpec ivParameterSpec = new IvParameterSpec(ivBytes);
-
-        // 创建 Cipher 实例，使用 AES/CBC/PKCS5Padding 模式
         Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5Padding");
-        // 初始化为解密模式
         cipher.init(Cipher.DECRYPT_MODE, secretKeySpec, ivParameterSpec);
-
-        // 将 Base64 编码的密文解码为字节数组
         byte[] decodedData = Base64.getDecoder().decode(data);
-        // 进行解密操作
         byte[] decryptedBytes = cipher.doFinal(decodedData);
-
-        // 将解密后的字节数组转换为 UTF-8 字符串
         return new String(decryptedBytes, StandardCharsets.UTF_8);
     }
     private static byte[] hexToBytes(String hex) {
@@ -96,15 +81,6 @@ public class Dm56 extends Spider {
         return data;
     }
     
-    /**
-     * 发起一个HTTP请求并返回响应结果
-     * 此方法使用OkHttp客户端来发送请求，并接收服务器的响应
-     *
-     * @param request HTTP请求对象，包含请求URL、方法、头信息和请求体等
-     * @return Response对象，包含服务器返回的状态码、头信息和响应体等
-     * @throws Exception 如果在执行请求过程中发生错误，将抛出异常
-     */
-
     private Response req(Request request) throws Exception {
         return okClient().newCall(request).execute();
     }
@@ -151,7 +127,7 @@ public class Dm56 extends Spider {
         Matcher m = pattern.matcher(html);
         return m.find() ? m.group(group).trim() : "";
     }
-    public  String decodeUnicodeEscape(String input) throws UnsupportedEncodingException {
+    private  String decodeUnicodeEscape(String input) throws UnsupportedEncodingException {
         // 定义匹配 %u 形式的 Unicode 转义序列的正则表达式
         Pattern pattern = Pattern.compile("%u([0-9A-Fa-f]{4})");
         Matcher matcher = pattern.matcher(input);
@@ -372,49 +348,8 @@ public class Dm56 extends Spider {
     }
 
 
-    // public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
-    //     String lastUrl = id;
-    //     String html = req(lastUrl, getHeader(lastUrl));
-    //     String jsonStr = find("var player_aaaa=(.*?)</script>", html);
-    //     JSONObject jsonObject = new JSONObject(jsonStr);
-    //     String dmid = new JSONObject(find("var d4ddy=(.*?)</script>", html)).get("dmid").toString();
-    //     String link = jsonObject.get("link").toString();
-    //     String url = decodeUnicodeEscape(jsonObject.get("url").toString());
-
-    //     String link_next = jsonObject.get("link_next").toString();
-    //     String sid = jsonObject.get("sid").toString();
-    //     String nid = jsonObject.get("nid").toString();
-    //     JSONObject vodData = jsonObject.getJSONObject("vod_data");
-    //     String name = decodeUnicodeEscape(vodData.get("vod_name").toString());
-    //     String pic = vodData.get("vod_pic").toString();
-    //     JSONObject result = new JSONObject();
-    //     String MacPlayerConfig = jsonObject.get("from").toString();
-    //     html = req("https://www.56dm.cc/static/player/" + MacPlayerConfig + ".js", getHeader(url));
-    //     String finalurl = find("src=(.*?) frameborder=", html).replace("\"", "").replace(" ", "");
-    //     finalurl = finalurl.replace("'+MacPlayer.PlayUrl+'", url).replace("'+d4ddy.dmid+'", dmid).replace("'+MacPlayer.PlayLinkNext+'", link_next).replace("'+MacPlayer.PlayName+'", name).replace("'+MacPlayer.Nid+'", nid).replace("'+window.location.origin+'", "https://www.56dm.cc").replace("'+MacPlayer.Pic+'", pic).replace("'+MacPlayer.Link+'", link).replace("'+MacPlayer.Sid+'", sid);
-    //     System.out.println(finalurl);
-    //     html = req(finalurl, getHeader(siteUrl));
-    //     String lasturl;String fainlurl = "";
-
-    //     if(html.contains("playData")){
-    //        lasturl = find("playData\\(\\'(.*?)\\'\\)", html);
-    //        String[] parts = lasturl.split("\',\'");
-    //        String data = parts[0];
-    //        String ivHex = parts[1];
-    //        String keyHex = "41424142454637373739393943434344";
-    //        fainlurl= decrypt(data, keyHex, ivHex);
-
-    //     }else if(html.contains("Artplayer")){
-    //        fainlurl = find("url: '(.*?)\\'", html);
-
-    //     }
-    //     fainlurl=decodeUnicodeEscape(fainlurl);
-    //     result.put("parse", 0);
-    //     result.put("header", "");
-    //     result.put("playUrl", "");
-    //     result.put("url", fainlurl);
-    //     return result.toString();
-    // }
+   
+    @Override
     public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
         String html = req(id, getHeader(siteUrl));
         JSONObject jsonObject = new JSONObject(find("var player_aaaa=(.*?)</script>", html));
