@@ -17,3 +17,7 @@ local.properties
 /LTDecodeSpace
 /adb.exe
 /LTDecodeNew3.exe
+node_modules/*
+package-lock.json
+package.json
+t.js
