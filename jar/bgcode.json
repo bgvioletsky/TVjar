@@ -11,7 +11,8 @@
 
   "sites": [
     {"key":"csp_Dm56","name":"56动漫","type":3,"api": "csp_Dm56","searchable":1},
-    {"key":"csp_Jpyy","name":"金鹰影视","type":3,"api": "csp_Jpyy","searchable":1}
+    {"key":"csp_Jpyy","name":"金鹰影视","type":3,"api": "csp_Jpyy","searchable":1},
+    {"key":"csp_Mb","name":"曼波","type":3,"api": "csp_Mb","searchable":1}
   ],
 
   "parses": [
