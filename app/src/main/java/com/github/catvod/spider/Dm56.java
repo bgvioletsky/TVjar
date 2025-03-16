@@ -31,6 +31,7 @@ import javax.crypto.spec.SecretKeySpec;
 import java.nio.charset.StandardCharsets;
 import java.util.Base64;
 
+import okhttp3.*;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
@@ -341,14 +342,9 @@ public class Dm56 extends Spider {
             searchUrl = siteUrl + "/search/" + URLEncoder.encode(key) + "----------" + pg + "---.html";
         }
         String cookie="";
-        try (Response response=req(searchUrl)){
-            if (response.isSuccessful()) {
-                Headers headers = response.headers();
-                cookie = headers.get("set-cookie").split(";")[0];
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        Response response=req(searchUrl);        
+        Headers headers = response.headers();
+        cookie = headers.get("set-cookie").split(";")[0];
         OkHttp.post("https://www.56dm.cc/index.php/ajax/verify_check?type=search","{}",getsHeader(searchUrl,cookie));
         html = req(searchUrl, getHeader(searchUrl, cookie+"; notice_closed=true"));
         Document doc = Jsoup.parse(html);
