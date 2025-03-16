@@ -1,7 +1,7 @@
 /*
  * @Author: bgcode
  * @Date: 2025-03-16 14:14:27
- * @LastEditTime: 2025-03-17 04:08:50
+ * @LastEditTime: 2025-03-17 04:13:05
  * @LastEditors: bgcode
  * @Description: 描述
  * @FilePath: /TVjar/app/src/main/java/com/github/catvod/utils/decrpy.java
@@ -10,6 +10,11 @@
 package com.github.catvod.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import javax.crypto.Cipher;
+import javax.crypto.spec.IvParameterSpec;
+import javax.crypto.spec.SecretKeySpec;
+import java.nio.charset.StandardCharsets;
+import java.util.Base64;
 public class decrpy {
     public static String encrypt(String data) throws Exception {
         SecretKeySpec secretKeySpec = new SecretKeySpec("66dc309cbeeca454".getBytes(StandardCharsets.UTF_8), "AES");
