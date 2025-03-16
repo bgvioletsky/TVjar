@@ -127,19 +127,17 @@ public class Jpyy extends Spider {
         String description = jsonObject.get("vodContent").toString();
         String circuitName = jsonObject.get("vodVersion").toString();
         JSONArray episodeList = jsonObject.getJSONArray("episodeList");
-        JSONArray vod_play_url= new JSONArray();
+        List<String> vodItems = new ArrayList<>();
         if (episodeList.length() > 0){
             for (int i = 0; i < episodeList.length(); i++) {
                 JSONObject list= episodeList.getJSONObject(i);
-                List<String> vodItems = new ArrayList<>();
                 vodItems.add(list.get("name")+"$"+list.get("nid").toString()+"@"+igd);
-                System.out.println(vodItems);
-                vod_play_url.put(vodItems);
                 if (vodItems.size() > 0) {
                playMap.put(circuitName, TextUtils.join("#", vodItems));
                 }
             }
         }
+
         JSONObject vod = new JSONObject();
         vod.put("vod_id", ids.get(0));
         vod.put("vod_name", name); // 影片名称
@@ -152,7 +150,7 @@ public class Jpyy extends Spider {
         vod.put("vod_director", director); // 导演 选填
         vod.put("vod_content", description); // 简介 选填
        if (playMap.size() > 0) {
-            vod.put("circuitName", TextUtils.join("$$$", playMap.keySet()));
+            vod.put("vod_play_from", TextUtils.join("$$$", playMap.keySet()));
             vod.put("vod_play_url", TextUtils.join("$$$", playMap.values()));
        }
         JSONArray jsonArray = new JSONArray().put(vod);
