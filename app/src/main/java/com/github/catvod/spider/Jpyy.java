@@ -4,7 +4,7 @@ import android.content.Context;
 import android.text.TextUtils;
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.net.OkHttp;
-import com.github.catvod.util.decrpy;
+import com.github.catvod.utils.decrpy;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
