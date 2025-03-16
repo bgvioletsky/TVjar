@@ -1,10 +1,10 @@
-package com.github.bgcode.spider;
+package com.github.catvod.spider;
 
 import android.content.Context;
 import android.text.TextUtils;
 import com.github.catvod.crawler.Spider;
-import com.github.bgcode.net.OkHttp;
-import com.github.bgcode.util.decrpy;
+import com.github.catvod.net.OkHttp;
+import com.github.catvod.util.decrpy;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
