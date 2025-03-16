@@ -45,7 +45,6 @@ public class Jpyy extends Spider {
     private  String generateSign(String md5Input) {
         String md5Hash = decrpy.md5(md5Input);
         if (md5Hash != null) {
-            System.out.println(md5Hash);
             return decrpy.sha1(md5Hash);
         }
         return null;
@@ -98,10 +97,10 @@ public class Jpyy extends Spider {
             vod.put("vod_remarks", item.get("vodSerial").toString());
             videos.put(vod);
         }
-        String  count=new JSONObject(html).getJSONObject("data").get("totalPage").toString();
+        String count = new JSONObject(html).getJSONObject("data").get("totalPage").toString();
         JSONObject result = new JSONObject();
-        result.put("page", pg);
-        result.put("pagecount", count);
+        result.put("page", Integer.parseInt(pg));
+        result.put("pagecount", Integer.parseInt(count));
         result.put("limit", list.length());
         result.put("total", Integer.MAX_VALUE);
         result.put("list", videos);
