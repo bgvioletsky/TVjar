@@ -1,4 +1,4 @@
-package com.github.bgcode.util;
+package com.github.catvod.util;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 public class decrpy {
