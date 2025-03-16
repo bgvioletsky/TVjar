@@ -88,14 +88,23 @@ public class Jpyy extends Spider {
         String sign = generateSign(md5Input);
         String html = req(cateUrl, getHeader(t, sign));
         JSONArray list= new JSONObject(html).getJSONObject("data").getJSONArray("list");
+        JSONArray videos = new JSONArray();
+        for (int i = 0; i < list.length(); i++) {
+            JSONObject vod = new JSONObject();
+            JSONObject  item = list.getJSONObject(i);
+            vod.put("vod_id", item.get("vodId").toString());
+            vod.put("vod_name", item.get("vodName").toString());
+            vod.put("vod_pic", item.get("vodPic").toString());
+            vod.put("vod_remarks", item.get("vodSerial").toString());
+            videos.put(vod);
+        }
         String  count=new JSONObject(html).getJSONObject("data").get("totalPage").toString();
-        System.out.println(html);
         JSONObject result = new JSONObject();
         result.put("page", pg);
         result.put("pagecount", count);
         result.put("limit", list.length());
         result.put("total", Integer.MAX_VALUE);
-        result.put("list", list);
+        result.put("list", videos);
         return result.toString();
     }
     @Override
