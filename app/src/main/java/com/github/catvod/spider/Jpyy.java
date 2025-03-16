@@ -14,7 +14,7 @@ import java.util.*;
 
 
 public class Jpyy extends Spider {
-    private String url="https://www.cqzuoer.com/";
+    private String url="https://www.cqzuoer.com";
     private String UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.95 Safari/537.36";
     private String keymm = "cb808529bae6b6be45ecfab29a4889bc";
     private  long t = System.currentTimeMillis();
