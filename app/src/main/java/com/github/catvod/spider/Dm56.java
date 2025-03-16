@@ -99,6 +99,9 @@ public class Dm56 extends Spider {
         header.put("User-Agent", userAgent);
         return header;
     }
+    private Response req(String url) throws IOException {
+        return OkHttp.newCall(url);
+    }
     private Map<String, String> getHeader(String referer) {
         Map<String, String> header = new HashMap<>();
         header.put("User-Agent", userAgent);
@@ -329,46 +332,6 @@ public class Dm56 extends Spider {
     }
 
     @Override
-    // public String searchContent(String key, boolean quick, String pg) throws Exception {
-    //     // 第一页
-    //     //https://www.56dm.cc/search/-------------.html?wd=
-    //     // https://www.56dm.cc/search/**----------1---.html
-    //     // 第二页
-    //     // https://www.56dm.cc/search/**----------2---.html
-
-    //     String html = "";
-
-
-    //     String searchUrl;
-    //     if ("1".equals(pg)) {
-    //         searchUrl = siteUrl + "/search/-------------.html?wd=" + URLEncoder.encode(key);
-    //     } else {
-    //         searchUrl = siteUrl + "/search/" + URLEncoder.encode(key)+"----------"+pg+"---.html";
-    //     };
-
-    //     html = req(searchUrl, getHeader(siteUrl,cookie));
-    //     Document doc = Jsoup.parse(html);
-    //     Elements elements = doc.select("[class=cCBf_FAAEfbc clearfix] > li");
-    //     JSONArray videos=new JSONArray(); ;
-    //     for (Element element : elements) {
-    //         Element a = element.selectFirst("a");
-    //         String vodId = a.attr("href");
-    //         String name = a.attr("title");
-    //         String pic = a.attr("data-original");
-    //         String remark = element.select(".dAD_BBCI").text();
-
-    //         JSONObject vod = new JSONObject();
-    //         vod.put("vod_id", vodId);
-    //         vod.put("vod_name", name);
-    //         vod.put("vod_pic", pic);
-    //         vod.put("vod_remarks", remark);
-    //         videos.put(vod);
-    //     }
-    //     JSONObject result = new JSONObject();
-    //     result.put("list", videos);
-    //     return result.toString();
-    // }
-
     public String searchContent(String key, boolean quick, String pg) throws Exception {
         String html ;
         String searchUrl;
