@@ -45,7 +45,7 @@ public class Mb extends Spider {
         for (int i = 0; i < obj.length(); i++) {
             String type_id=obj.getJSONObject(i).get("type_id").toString();
             if(!type_id.equals("0")){
-                classes.put(new JSONObject().put("type_id",obj.getJSONObject(i).get("type_id").toString()).put("type_name",obj.getJSONObject(i).getString("type_name")));
+                classes.put(new JSONObject().put("type_id",type_id).put("type_name",obj.getJSONObject(i).getString("type_name")));
             }
         }
         JSONArray video = data.getJSONArray("banner_list");
@@ -206,3 +206,4 @@ public class Mb extends Spider {
         result.put("list", videos);
         return result.toString();
     }
+}
