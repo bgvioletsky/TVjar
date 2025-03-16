@@ -1,4 +1,4 @@
-package com.github.catvod.util;
+package com.github.catvod.utils;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 public class decrpy {
