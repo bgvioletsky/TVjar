@@ -158,6 +158,10 @@ public class Jpyy extends Spider {
         return result.toString();
     }
     @Override
+    public String searchContent(String key, boolean quick) throws Exception {
+        return searchContent(key, quick, "1");
+    }
+    @Override
     public String searchContent(String key, boolean quick, String pg) throws Exception {
         String site = url + "/api/mw-movie/anonymous/video/searchByWord?keyword="+key+"&pageNum="+pg+"&pageSize=12&sourceCode=1";
         String md5Input = "keyword="+key+"&pageNum="+pg+"&pageSize=12&sourceCode=1&key="+keymm+"&t="+t;
