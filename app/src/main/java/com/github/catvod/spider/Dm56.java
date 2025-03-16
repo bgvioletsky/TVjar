@@ -160,6 +160,28 @@ public class Dm56 extends Spider {
 
     }
 
+    private Map<String, String> getsHeader(String searchUrl,String cookie) {
+        Map<String, String> header = new HashMap<>();
+        header.put("host", "www.56dm.cc");
+        header.put("accept", "application/json, text/javascript, */*; q=0.01");
+        header.put("accept-encoding", "gzip, deflate, br, zstd");
+        header.put("accept-language", "en-US,en;q=0.9,zh-CN;q=0.8,zh;q=0.7");
+        header.put("content-length", "0");
+        header.put("cookie", cookie);
+        header.put("dnt", "1");
+        header.put("origin", "https://www.56dm.cc");
+        header.put("priority", "u=1, i");
+        header.put("referer", searchUrl);
+        header.put("sec-ch-ua", "\"Chromium\";v=\"134\", \"Not:A-Brand\";v=\"24\", \"Google Chrome\";v=\"134\"");
+        header.put("sec-ch-ua-mobile", "?0");
+        header.put("sec-ch-ua-platform", "\"macOS\"");
+        header.put("sec-fetch-dest", "empty");
+        header.put("sec-fetch-mode", "cors");
+        header.put("sec-fetch-site", "same-origin");
+        header.put("user-agent", "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/134.0.0.0 Safari/537.36");
+        header.put("x-requested-with", "XMLHttpRequest");
+        return header;
+    }
 
     @Override
     public String homeContent(boolean filter) throws Exception {
@@ -307,34 +329,75 @@ public class Dm56 extends Spider {
     }
 
     @Override
+    // public String searchContent(String key, boolean quick, String pg) throws Exception {
+    //     // 第一页
+    //     //https://www.56dm.cc/search/-------------.html?wd=
+    //     // https://www.56dm.cc/search/**----------1---.html
+    //     // 第二页
+    //     // https://www.56dm.cc/search/**----------2---.html
+
+    //     String html = "";
+
+
+    //     String searchUrl;
+    //     if ("1".equals(pg)) {
+    //         searchUrl = siteUrl + "/search/-------------.html?wd=" + URLEncoder.encode(key);
+    //     } else {
+    //         searchUrl = siteUrl + "/search/" + URLEncoder.encode(key)+"----------"+pg+"---.html";
+    //     };
+
+    //     html = req(searchUrl, getHeader(siteUrl,cookie));
+    //     Document doc = Jsoup.parse(html);
+    //     Elements elements = doc.select("[class=cCBf_FAAEfbc clearfix] > li");
+    //     JSONArray videos=new JSONArray(); ;
+    //     for (Element element : elements) {
+    //         Element a = element.selectFirst("a");
+    //         String vodId = a.attr("href");
+    //         String name = a.attr("title");
+    //         String pic = a.attr("data-original");
+    //         String remark = element.select(".dAD_BBCI").text();
+
+    //         JSONObject vod = new JSONObject();
+    //         vod.put("vod_id", vodId);
+    //         vod.put("vod_name", name);
+    //         vod.put("vod_pic", pic);
+    //         vod.put("vod_remarks", remark);
+    //         videos.put(vod);
+    //     }
+    //     JSONObject result = new JSONObject();
+    //     result.put("list", videos);
+    //     return result.toString();
+    // }
+
     public String searchContent(String key, boolean quick, String pg) throws Exception {
-        // 第一页
-        //https://www.56dm.cc/search/-------------.html?wd=
-        // https://www.56dm.cc/search/**----------1---.html
-        // 第二页
-        // https://www.56dm.cc/search/**----------2---.html
-
-        String html = "";
-
-
+        String html ;
         String searchUrl;
         if ("1".equals(pg)) {
             searchUrl = siteUrl + "/search/-------------.html?wd=" + URLEncoder.encode(key);
         } else {
-            searchUrl = siteUrl + "/search/" + URLEncoder.encode(key)+"----------"+pg+"---.html";
-        };
-
-        html = req(searchUrl, getHeader(siteUrl,cookie));
+            searchUrl = siteUrl + "/search/" + URLEncoder.encode(key) + "----------" + pg + "---.html";
+        }
+        String cookie="";
+        try (Response response=req(searchUrl)){
+            if (response.isSuccessful()) {
+                Headers headers = response.headers();
+                cookie = headers.get("set-cookie").split(";")[0];
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        OkHttp.post("https://www.56dm.cc/index.php/ajax/verify_check?type=search","{}",getsHeader(searchUrl,cookie));
+        html = req(searchUrl, getHeader(searchUrl, cookie+"; notice_closed=true"));
         Document doc = Jsoup.parse(html);
+        System.out.println(html);
         Elements elements = doc.select("[class=cCBf_FAAEfbc clearfix] > li");
-        JSONArray videos=new JSONArray(); ;
+        JSONArray videos = new JSONArray();
         for (Element element : elements) {
             Element a = element.selectFirst("a");
             String vodId = a.attr("href");
             String name = a.attr("title");
             String pic = a.attr("data-original");
             String remark = element.select(".dAD_BBCI").text();
-
             JSONObject vod = new JSONObject();
             vod.put("vod_id", vodId);
             vod.put("vod_name", name);
@@ -346,7 +409,6 @@ public class Dm56 extends Spider {
         result.put("list", videos);
         return result.toString();
     }
-
 
    
     @Override
