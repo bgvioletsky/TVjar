@@ -12,6 +12,7 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 import java.util.*;
 
+
 public class Jpyy extends Spider {
     private String url="https://www.cqzuoer.com/";
     private String UA="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.95 Safari/537.36";
@@ -49,7 +50,7 @@ public class Jpyy extends Spider {
         }
         return null;
     }
-
+    @Override
     public String homeContent(boolean filter) throws Exception {
         String md5Input = "key=" + keymm + "&t=" + t;
         String sign = generateSign(md5Input);
@@ -80,7 +81,7 @@ public class Jpyy extends Spider {
         result.put("list", videos);
         return result.toString();
     }
-
+    @Override
     public String categoryContent(String tid, String pg, boolean filter, HashMap<String, String> extend) throws Exception {
         String cateUrl = url + "/api/mw-movie/anonymous/video/list?type1="+tid+"&pageNum="+pg+"&area=&year=";
         String md5Input = "area=&pageNum="+pg+"&type1="+tid+"&year=&key="+keymm+"&t="+t;
@@ -97,6 +98,7 @@ public class Jpyy extends Spider {
         result.put("list", list);
         return result.toString();
     }
+    @Override
     public String detailContent(List<String> ids) throws Exception {
         String igd = ids.get(0);
         System.out.println(igd);
@@ -149,6 +151,7 @@ public class Jpyy extends Spider {
         JSONObject result = new JSONObject().put("list", jsonArray);
         return result.toString();
     }
+    @Override
     public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
         String[] parts= id.split("@");
         String nid = parts[0].trim();
@@ -165,7 +168,7 @@ public class Jpyy extends Spider {
         result.put("url", url);
         return result.toString();
     }
-
+    @Override
     public String searchContent(String key, boolean quick, String pg) throws Exception {
         String site = url + "/api/mw-movie/anonymous/video/searchByWord?keyword="+key+"&pageNum="+pg+"&pageSize=12&sourceCode=1";
         String md5Input = "keyword="+key+"&pageNum="+pg+"&pageSize=12&sourceCode=1&key="+keymm+"&t="+t;
