@@ -1,5 +1,5 @@
 {
-  "spider": "https://raw.githubusercontent.com/bgvioletsky/TVjar/refs/heads/main/jar/bgcode.jar;md5;d8e2e3248d959793192bdfa7fca090c5",
+  "spider": "https://raw.githubusercontent.com/bgvioletsky/TVjar/refs/heads/main/jar/bgcode.jar;md5;5deea31b41f995d58007524631238bc2",
 
   "lives": [
     {
@@ -10,7 +10,8 @@
   ],
 
   "sites": [
-    {"key":"csp_Dm56","name":"动漫 | 巴士","type":3,"api": "csp_Dm56","searchable":1}
+    {"key":"csp_Dm56","name":"动漫 | 巴士","type":3,"api": "csp_Dm56","searchable":1},
+    {"key":"csp_Jpyy","name":"金鹰影视","type":3,"api": "csp_Jpyy","searchable":1}
   ],
 
   "parses": [
