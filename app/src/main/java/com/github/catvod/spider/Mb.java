@@ -5,13 +5,9 @@ import com.github.catvod.net.OkHttp;
 import com.github.catvod.utils.decrpy;
 import org.json.JSONArray;
 import org.json.JSONObject;
-
-
-import java.io.UnsupportedEncodingException;
-import java.net.URLEncoder;
 import java.util.*;
 
-import static com.github.catvod.net.getData.req;
+
 
 public class Mb extends Spider {
     private String url="https://app.omofun1.top";
@@ -30,9 +26,6 @@ public class Mb extends Spider {
         header.put("User-Agent", UA);
         header.put("referer", url);
         return header;
-    }
-    private String encodeURIComponent(String data) throws Exception {
-        return URLEncoder.encode(data, "UTF-8");
     }
     @Override
     public String homeContent(boolean filter) throws Exception {
