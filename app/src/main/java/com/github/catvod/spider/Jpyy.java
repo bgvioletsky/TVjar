@@ -158,23 +158,6 @@ public class Jpyy extends Spider {
         return result.toString();
     }
     @Override
-    public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
-        String[] parts= id.split("@");
-        String nid = parts[0].trim();
-        String vid = parts[1].trim();
-        String site = url + "/api/mw-movie/anonymous/v1/video/episode/url?id="+vid+"&nid="+nid;
-        String md5Input = "id="+vid+"&nid="+nid+"&key="+keymm+"&t="+ t;
-        String sign = generateSign(md5Input);
-        String html = req(site, getHeader(t, sign));
-        String url = new JSONObject(html).getJSONObject("data").get("playUrl").toString();
-        JSONObject result = new JSONObject();
-        result.put("parse", 0);
-        result.put("header", "");
-        result.put("playUrl", "");
-        result.put("url", url);
-        return result.toString();
-    }
-    @Override
     public String searchContent(String key, boolean quick, String pg) throws Exception {
         String site = url + "/api/mw-movie/anonymous/video/searchByWord?keyword="+key+"&pageNum="+pg+"&pageSize=12&sourceCode=1";
         String md5Input = "keyword="+key+"&pageNum="+pg+"&pageSize=12&sourceCode=1&key="+keymm+"&t="+t;
@@ -197,4 +180,22 @@ public class Jpyy extends Spider {
         result.put("list", videos);
         return result.toString();
     }
+    @Override
+    public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
+        String[] parts= id.split("@");
+        String nid = parts[0].trim();
+        String vid = parts[1].trim();
+        String site = url + "/api/mw-movie/anonymous/v1/video/episode/url?id="+vid+"&nid="+nid;
+        String md5Input = "id="+vid+"&nid="+nid+"&key="+keymm+"&t="+ t;
+        String sign = generateSign(md5Input);
+        String html = req(site, getHeader(t, sign));
+        String url = new JSONObject(html).getJSONObject("data").get("playUrl").toString();
+        JSONObject result = new JSONObject();
+        result.put("parse", 0);
+        result.put("header", "");
+        result.put("playUrl", "");
+        result.put("url", url);
+        return result.toString();
+    }
+   
 }
