@@ -100,7 +100,7 @@ public class Dm56 extends Spider {
         header.put("User-Agent", userAgent);
         return header;
     }
-    private Response req(String url) throws IOException {
+    private Response req(String url) throws Exception {
         return OkHttp.newCall(url);
     }
     private Map<String, String> getHeader(String referer) {
