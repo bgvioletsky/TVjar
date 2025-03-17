@@ -124,8 +124,9 @@ public class Mb extends Spider {
            }
 
        }
+        vod_play_from=vod_play_from.replace("oi/失败就重启软件", "异次元");
         JSONObject jsonObject=new JSONObject(dm(html)).getJSONObject("vod");
-        String name = jsonObject.get("vod_class").toString();
+        String name = jsonObject.get("vod_name").toString();
         String year = jsonObject.get("vod_year").toString();
         String area= jsonObject.get("vod_area").toString();
         String remark = jsonObject.get("vod_remarks").toString();
