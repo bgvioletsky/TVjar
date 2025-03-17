@@ -37,7 +37,7 @@ public class Xf extends Spider {
             videos.put(vod);
         }
         String f="[{\"type_name\":\"连载新番\",\"type_id\":1},{\"type_name\":\"完结旧番\",\"type_id\":2},{\"type_name\":\"剧场版\",\"type_id\":3},{\"type_name\":\"美漫区\",\"type_id\":21},{\"type_name\":\"贤者专区\",\"type_id\":22}]";
-        JSONObject classes = new JSONObject(f);
+        JSONArray classes = new JSONArray(f);
         JSONObject result = new JSONObject();
         result.put("class", classes);
         result.put("list", videos);
