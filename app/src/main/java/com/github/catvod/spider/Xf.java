@@ -24,23 +24,23 @@ public class Xf extends Spider {
     }
     @Override
     public String homeContent(boolean filter) throws Exception {
-        String site=url+"/xgapp.php/v2/video?pg=1&tid=1&class=&area=&lang=&year=";
-        JSONArray list = new JSONObject(req(site,getheader())).getJSONArray("data");
-        JSONArray videos = new JSONArray();
-        for (int i = 0; i < list.length(); i++) {
-            JSONObject vod = new JSONObject();
-            JSONObject  item = list.getJSONObject(i);
-            vod.put("vod_id", item.get("vod_id").toString());
-            vod.put("vod_name", item.get("vod_name").toString());
-            vod.put("vod_pic", item.get("vod_pic").toString());
-            vod.put("vod_remarks", item.get("vod_remarks").toString());
-            videos.put(vod);
-        }
+        // String site=url+"/xgapp.php/v2/video?pg=1&tid=1&class=&area=&lang=&year=";
+        // JSONArray list = new JSONObject(req(site,getheader())).getJSONArray("data");
+        // JSONArray videos = new JSONArray();
+        // for (int i = 0; i < list.length(); i++) {
+        //     JSONObject vod = new JSONObject();
+        //     JSONObject  item = list.getJSONObject(i);
+        //     vod.put("vod_id", item.get("vod_id").toString());
+        //     vod.put("vod_name", item.get("vod_name").toString());
+        //     vod.put("vod_pic", item.get("vod_pic").toString());
+        //     vod.put("vod_remarks", item.get("vod_remarks").toString());
+        //     videos.put(vod);
+        // }
         String f="[{\"type_name\":\"连载新番\",\"type_id\":1},{\"type_name\":\"完结旧番\",\"type_id\":2},{\"type_name\":\"剧场版\",\"type_id\":3},{\"type_name\":\"美漫区\",\"type_id\":21},{\"type_name\":\"贤者专区\",\"type_id\":22}]";
         JSONArray classes = new JSONArray(f);
         JSONObject result = new JSONObject();
         result.put("class", classes);
-        result.put("list", videos);
+        // result.put("list", videos);
         return result.toString();
     }
     @Override
