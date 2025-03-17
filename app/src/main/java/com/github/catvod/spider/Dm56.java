@@ -375,7 +375,7 @@ public class Dm56 extends Spider {
         // String html = req(id, getHeader(siteUrl));
         // JSONObject jsonObject = new JSONObject(find("var player_aaaa=(.*?)</script>", html));
         // JSONObject vodData = jsonObject.getJSONObject("vod_data");
-        // JSONObject result = new JSONObject();
+        JSONObject result = new JSONObject();
         // String dmid = new JSONObject(find("var d4ddy=(.*?)</script>", html)).get("dmid").toString();
         // String link = jsonObject.get("link").toString();
         // String nid = jsonObject.get("nid").toString();
