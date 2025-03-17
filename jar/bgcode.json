@@ -28,6 +28,12 @@
       "type": 3,
       "api": "csp_Mb",
       "searchable": 1
+    }, {
+      "key": "csp_Xf",
+      "name": "稀饭",
+      "type": 3,
+      "api": "csp_Xf",
+      "searchable": 1
     }
   ],
   "parses": [
