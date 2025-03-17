@@ -372,46 +372,46 @@ public class Dm56 extends Spider {
    
     @Override
     public String playerContent(String flag, String id, List<String> vipFlags) throws Exception {
-        String html = req(id, getHeader(siteUrl));
-        JSONObject jsonObject = new JSONObject(find("var player_aaaa=(.*?)</script>", html));
-        JSONObject vodData = jsonObject.getJSONObject("vod_data");
-        JSONObject result = new JSONObject();
-        String dmid = new JSONObject(find("var d4ddy=(.*?)</script>", html)).get("dmid").toString();
-        String link = jsonObject.get("link").toString();
-        String nid = jsonObject.get("nid").toString();
-        String link_next = jsonObject.get("link_next").toString();
-        String url = decodeUnicodeEscape(jsonObject.get("url").toString());
-        String sid = jsonObject.get("sid").toString();
-        String name = decodeUnicodeEscape(vodData.get("vod_name").toString());
-        String pic = vodData.get("vod_pic").toString();
-        String MacPlayerConfig = jsonObject.get("from").toString();
-        String finalurl="";
-        if(MacPlayerConfig.equals("tudou")){
-            finalurl="https://art2.v2player.top:8989/player/?t=td&url="+ url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&sid="+sid+"&nid="+nid+"&cur="+link+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic;
-        }else if (MacPlayerConfig.equals("1080zyk")||MacPlayerConfig.equals("bfzym3u8")||MacPlayerConfig.equals("mp4")||MacPlayerConfig.equals("xigua")||MacPlayerConfig.equals("ffm3u8")||MacPlayerConfig.equals("lzm3u8")){
-            finalurl="https://art.v2player.top:8989/player/?url="+url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&nid="+nid+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic;
-        }else if(MacPlayerConfig.equals("mag")){
-            finalurl="https://art2.v2player.top:8989/player/?t=bus&url="+ url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&sid="+sid+"&nid="+nid+"&cur="+link+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic ;
-        }
-        System.out.println(finalurl);
-        html = req(finalurl, getHeader(siteUrl));
-        String lasturl;String fainlurl1 = "";
+        // String html = req(id, getHeader(siteUrl));
+        // JSONObject jsonObject = new JSONObject(find("var player_aaaa=(.*?)</script>", html));
+        // JSONObject vodData = jsonObject.getJSONObject("vod_data");
+        // JSONObject result = new JSONObject();
+        // String dmid = new JSONObject(find("var d4ddy=(.*?)</script>", html)).get("dmid").toString();
+        // String link = jsonObject.get("link").toString();
+        // String nid = jsonObject.get("nid").toString();
+        // String link_next = jsonObject.get("link_next").toString();
+        // String url = decodeUnicodeEscape(jsonObject.get("url").toString());
+        // String sid = jsonObject.get("sid").toString();
+        // String name = decodeUnicodeEscape(vodData.get("vod_name").toString());
+        // String pic = vodData.get("vod_pic").toString();
+        // String MacPlayerConfig = jsonObject.get("from").toString();
+        // String finalurl="";
+        // if(MacPlayerConfig.equals("tudou")){
+        //     finalurl="https://art2.v2player.top:8989/player/?t=td&url="+ url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&sid="+sid+"&nid="+nid+"&cur="+link+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic;
+        // }else if (MacPlayerConfig.equals("1080zyk")||MacPlayerConfig.equals("bfzym3u8")||MacPlayerConfig.equals("mp4")||MacPlayerConfig.equals("xigua")||MacPlayerConfig.equals("ffm3u8")||MacPlayerConfig.equals("lzm3u8")){
+        //     finalurl="https://art.v2player.top:8989/player/?url="+url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&nid="+nid+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic;
+        // }else if(MacPlayerConfig.equals("mag")){
+        //     finalurl="https://art2.v2player.top:8989/player/?t=bus&url="+ url +"&dmid="+ dmid +"&next="+link_next+"&name="+name+"&sid="+sid+"&nid="+nid+"&cur="+link+"&ph=https://as.cfhls.top/&h=https://www.56dm.cc&pic="+pic ;
+        // }
+        // System.out.println(finalurl);
+        // html = req(finalurl, getHeader(siteUrl));
+        // String lasturl;String fainlurl1 = "";
 
-        if(html.contains("playData")){
-           lasturl = find("playData\\(\\'(.*?)\\'\\)", html);
-           String[] parts = lasturl.split("\',\'");
-           String data = parts[0];
-           String ivHex = parts[1];
-           String keyHex = "41424142454637373739393943434344";
-           fainlurl1= decrypt(data, keyHex, ivHex);
-        }else if(html.contains("Artplayer")){
-           fainlurl1 = find("url: '(.*?)\\'", html).replace("https://m3u8xx.sgzm.net:2087/","");
-        }
-        fainlurl1=decodeUnicodeEscape(fainlurl1);
-        result.put("parse", 0);
+        // if(html.contains("playData")){
+        //    lasturl = find("playData\\(\\'(.*?)\\'\\)", html);
+        //    String[] parts = lasturl.split("\',\'");
+        //    String data = parts[0];
+        //    String ivHex = parts[1];
+        //    String keyHex = "41424142454637373739393943434344";
+        //    fainlurl1= decrypt(data, keyHex, ivHex);
+        // }else if(html.contains("Artplayer")){
+        //    fainlurl1 = find("url: '(.*?)\\'", html).replace("https://m3u8xx.sgzm.net:2087/","");
+        // }
+        // fainlurl1=decodeUnicodeEscape(fainlurl1);
+        result.put("parse", 1);
         result.put("header", "");
         result.put("playUrl", "");
-        result.put("url", fainlurl1);
+        result.put("url", id);
         return result.toString();
 }
 
