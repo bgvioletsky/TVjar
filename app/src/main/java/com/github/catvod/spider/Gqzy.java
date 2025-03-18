@@ -2,13 +2,8 @@ package com.github.catvod.spider;
 
 import com.github.catvod.crawler.Spider;
 import com.github.catvod.net.OkHttp;
-import org.json.JSONArray;
-import org.json.JSONObject;
-
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import org.json.*;
+import java.util.*;
 
 public class Gqzy extends Spider {
 
@@ -25,18 +20,24 @@ public class Gqzy extends Spider {
     }
     @Override
     public String homeContent(boolean filter) throws Exception {
-        String data=req(url+"/inc/apijson.php?ac=list",getHeader());
-        JSONArray classes=new JSONArray(new JSONObject(data).getJSONArray("class"));
-        for(int i = classes.length() - 1; i >= 0; i--){
-            JSONObject obj=classes.getJSONObject(i);
-            String type_id=obj.getString("type_id");
-            if(type_id.equals("1")||type_id.equals("2")||type_id.equals("3")||type_id.equals("4")){
-               classes.remove(i);
-            }
-            obj.put("type_id", Integer.parseInt(type_id));
+        String data=req(url+"/inc/apijson.php?ac=detail",getHeader());
+        JSONArray veidos=new JSONArray(new JSONObject(data).getJSONArray("list"));
+        JSONArray videos=new JSONArray();
+        for(int i=0;i<veidos.length();i++){
+            JSONObject vod = new JSONObject();
+            JSONObject  item = veidos.getJSONObject(i);
+            vod.put("vod_id", item.get("vod_id").toString());
+            vod.put("vod_name", item.get("vod_name").toString());
+            vod.put("vod_pic", item.get("vod_pic").toString());
+            vod.put("vod_remarks", item.get("vod_remark").toString());
+            videos.put(vod);
         }
+
+        String f="[{\"type_id\":5,\"type_name\":\"动作片\"},{\"type_id\":6,\"type_name\":\"喜剧片\"},{\"type_id\":7,\"type_name\":\"爱情片\"},{\"type_id\":8,\"type_name\":\"科幻片\"},{\"type_id\":9,\"type_name\":\"恐怖片\"},{\"type_id\":10,\"type_name\":\"剧情片\"},{\"type_id\":11,\"type_name\":\"战争片\"},{\"type_id\":12,\"type_name\":\"国产剧\"},{\"type_id\":13,\"type_name\":\"台湾剧\"},{\"type_id\":14,\"type_name\":\"韩国剧\"},{\"type_id\":15,\"type_name\":\"欧美剧\"},{\"type_id\":16,\"type_name\":\"香港剧\"},{\"type_id\":17,\"type_name\":\"泰国剧\"},{\"type_id\":18,\"type_name\":\"日本剧\"},{\"type_id\":19,\"type_name\":\"福利\"},{\"type_id\":20,\"type_name\":\"记录片\"},{\"type_id\":41,\"type_name\":\"动画片\"},{\"type_id\":54,\"type_name\":\"海外剧\"},{\"type_id\":61,\"type_name\":\"倫理片\"},{\"type_id\":62,\"type_name\":\"大陆综艺\"},{\"type_id\":63,\"type_name\":\"港台综艺\"},{\"type_id\":64,\"type_name\":\"日韩综艺\"},{\"type_id\":65,\"type_name\":\"欧美综艺\"},{\"type_id\":66,\"type_name\":\"国产动漫\"},{\"type_id\":67,\"type_name\":\"日韩动漫\"},{\"type_id\":68,\"type_name\":\"欧美动漫\"},{\"type_id\":69,\"type_name\":\"港台动漫\"},{\"type_id\":70,\"type_name\":\"海外动漫\"},{\"type_id\":78,\"type_name\":\"搞笑\"},{\"type_id\":79,\"type_name\":\"音乐\"},{\"type_id\":80,\"type_name\":\"影视\"},{\"type_id\":81,\"type_name\":\"汽车\"},{\"type_id\":83,\"type_name\":\"短剧大全\"},{\"type_id\":92,\"type_name\":\"预告片\"},{\"type_id\":93,\"type_name\":\"预告片\"},{\"type_id\":94,\"type_name\":\"体育\"}]";
+        JSONArray classes = new JSONArray(f);
         JSONObject result = new JSONObject();
         result.put("class", classes);
+        result.put("list", videos);
         return result.toString();
     }
     @Override
