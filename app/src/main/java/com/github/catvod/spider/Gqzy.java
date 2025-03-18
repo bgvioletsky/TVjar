@@ -23,10 +23,11 @@ public class Gqzy extends Spider {
         JSONArray classes=new JSONArray(new JSONObject(data).getJSONArray("class"));
         for(int i = classes.length() - 1; i >= 0; i--){
             JSONObject obj=classes.getJSONObject(i);
-            String type_id=   obj.getString("type_id");
+            String type_id=obj.getString("type_id");
             if(type_id.equals("1")||type_id.equals("2")||type_id.equals("3")||type_id.equals("4")){
                classes.remove(i);
             }
+            obj.put("type_id", Integer.parseInt(type_id));
         }
         JSONObject result = new JSONObject();
         result.put("class", classes);
@@ -98,6 +99,9 @@ public class Gqzy extends Spider {
         result.put("list", videos);
         return result.toString();
     }
-    
 
+//    public static void main(String[] args) throws Exception {
+//       Gqzy gqzy = new Gqzy();
+//       System.out.println(gqzy.homeContent(true));
+//   }
 }
