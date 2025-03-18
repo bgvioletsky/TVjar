@@ -54,7 +54,7 @@ public class Gqzy extends Spider {
             vod.put("vod_id", item.get("vod_id").toString());
             vod.put("vod_name", item.get("vod_name").toString());
             vod.put("vod_pic", "https://www.omofuns.com/template/the4/statics/img/load.gif");
-            vod.put("vod_remarks", item.get("vod_remark").toString());
+            vod.put("vod_remarks", "");
             videos.put(vod);
         }
         JSONObject result = new JSONObject();
@@ -62,11 +62,11 @@ public class Gqzy extends Spider {
         return result.toString();
     }
 
-    public static void main(String[] args) throws Exception {
-       Gqzy gqzy = new Gqzy();
+    // public static void main(String[] args) throws Exception {
+    //    Gqzy gqzy = new Gqzy();
 //       System.out.println(gqzy.homeContent(true));
 //       System.out.println(gqzy.categoryContent("6","2",true,null));
-       System.out.println(gqzy.detailContent(new ArrayList<String>() {{ add("22"); }}));
-       System.out.println(gqzy.searchContent("海", false, "1"));
-   }
+//        System.out.println(gqzy.detailContent(new ArrayList<String>() {{ add("22"); }}));
+//        System.out.println(gqzy.searchContent("海", false, "1"));
+//    }
 }
