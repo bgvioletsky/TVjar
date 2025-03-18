@@ -10,29 +10,35 @@
   "sites": [
     {
       "key": "csp_Dm56",
-      "name": "56动漫",
+      "name": "动漫｜56动漫",
       "type": 3,
       "api": "csp_Dm56",
       "searchable": 1
     },
     {
       "key": "csp_Jpyy",
-      "name": "金鹰影视",
+      "name": "影视｜金鹰",
       "type": 3,
       "api": "csp_Jpyy",
       "searchable": 1
     },
     {
       "key": "csp_Mb",
-      "name": "曼波",
+      "name": "动漫｜曼波",
       "type": 3,
       "api": "csp_Mb",
       "searchable": 1
     }, {
       "key": "csp_Xf",
-      "name": "稀饭",
+      "name": "动漫｜稀饭",
       "type": 3,
       "api": "csp_Xf",
+      "searchable": 1
+    },{
+      "key": "csp_Gqzy",
+      "name": "采集｜高清资源",
+      "type": 3,
+      "api": "csp_Gqzy",
       "searchable": 1
     }
   ],
