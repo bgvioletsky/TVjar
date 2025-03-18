@@ -1,14 +1,20 @@
 package com.github.catvod.spider;
 
 import com.github.catvod.crawler.Spider;
-import com.github.catvod.net.getData;
+import com.github.catvod.net.OkHttp;
 import org.json.JSONArray;
 import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 public class Gqzy extends Spider {
+
+    private   String req(String url, Map<String, String> header) {
+        return OkHttp.string(url, header);
+    }
     String url="https://yzzy.tv";
     String ua="Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/122.0.6261.95 Safari/537.36";
     private Map<String, String> getHeader() {
@@ -19,7 +25,7 @@ public class Gqzy extends Spider {
     }
     @Override
     public String homeContent(boolean filter) throws Exception {
-        String data=getData.req(url+"/inc/apijson.php?ac=list",getHeader());
+        String data=req(url+"/inc/apijson.php?ac=list",getHeader());
         JSONArray classes=new JSONArray(new JSONObject(data).getJSONArray("class"));
         for(int i = classes.length() - 1; i >= 0; i--){
             JSONObject obj=classes.getJSONObject(i);
@@ -33,9 +39,10 @@ public class Gqzy extends Spider {
         result.put("class", classes);
         return result.toString();
     }
+    @Override
     public String categoryContent(String tid, String pg, boolean filter, HashMap<String, String> extend) throws Exception {
         String cateUrl=url+"/inc/apijson.php?ac=detail&pg"+pg+"&t="+tid;
-        JSONArray list = new JSONObject(getData.req(cateUrl,getHeader())).getJSONArray("list");
+        JSONArray list = new JSONObject(req(cateUrl,getHeader())).getJSONArray("list");
         JSONArray videos = new JSONArray();
         for (int i = 0; i < list.length(); i++) {
             JSONObject vod = new JSONObject();
@@ -43,7 +50,7 @@ public class Gqzy extends Spider {
             vod.put("vod_id", item.get("vod_id").toString());
             vod.put("vod_name", item.get("vod_name").toString());
             vod.put("vod_pic", item.get("vod_pic").toString());
-            vod.put("vod_remarks", item.get("vod_remarks").toString());
+            vod.put("vod_remarks", item.get("vod_remark").toString());
             videos.put(vod);
         }
         JSONObject result = new JSONObject();
@@ -55,7 +62,7 @@ public class Gqzy extends Spider {
         return result.toString();
     }
     public String detailContent(List<String> ids) throws Exception {
-        String data=getData.req(url+"/inc/apijson.php?ac=detail&ids="+ids.get(0),getHeader());
+        String data=req(url+"/inc/apijson.php?ac=detail&ids="+ids.get(0),getHeader());
         JSONObject list=new JSONObject(new JSONObject(data).getJSONArray("list").get(0).toString());
         JSONObject vod = new JSONObject();
         vod.put("vod_id", list.get("vod_id").toString());
@@ -83,7 +90,7 @@ public class Gqzy extends Spider {
     }
 
     public String searchContent(String key, boolean quick, String pg) throws Exception {
-        String data=getData.req(url+"/inc/apijson.php?ac=detail&pg"+pg+"&wd="+key,getHeader());
+        String data=req(url+"/inc/apijson.php?ac=detail&pg"+pg+"&wd="+key,getHeader());
         JSONArray res=  new JSONObject(data).getJSONArray("list");
         JSONArray videos=new JSONArray();
         for(int i=0;i<res.length();i++){
@@ -92,7 +99,7 @@ public class Gqzy extends Spider {
             vod.put("vod_id", item.get("vod_id").toString());
             vod.put("vod_name", item.get("vod_name").toString());
             vod.put("vod_pic", item.get("vod_pic").toString());
-            vod.put("vod_remarks", item.get("vod_remarks").toString());
+            vod.put("vod_remarks", item.get("vod_remark").toString());
             videos.put(vod);
         }
         JSONObject result = new JSONObject();
@@ -103,5 +110,8 @@ public class Gqzy extends Spider {
 //    public static void main(String[] args) throws Exception {
 //       Gqzy gqzy = new Gqzy();
 //       System.out.println(gqzy.homeContent(true));
+//       System.out.println(gqzy.categoryContent("6","2",true,null));
+//       System.out.println(gqzy.detailContent(new ArrayList<String>() {{ add("22"); }}));
+//       System.out.println(gqzy.searchContent("海", false, "2"));
 //   }
 }
