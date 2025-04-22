@@ -5,10 +5,16 @@
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
+        <option name="gradleJvm" value="19" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/app" />
+            <option value="$PROJECT_DIR$/test" />
+            <option value="$PROJECT_DIR$/test/src" />
+            <option value="$PROJECT_DIR$/test/src/main" />
+            <option value="$PROJECT_DIR$/test/src/main/test" />
+            <option value="$PROJECT_DIR$/untitled" />
           </set>
         </option>
       </GradleProjectSettings>
